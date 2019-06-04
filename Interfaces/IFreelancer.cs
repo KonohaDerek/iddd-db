@@ -20,6 +20,6 @@ namespace iddd_db.Interfaces
         /// <param name="projectId"></param>
         /// <param name="freelancer"></param>
         /// <returns></returns>
-        Project SetTimeSheet(string projectId, IFreelancer freelancer);
+        Project TimeSheetEntered(string projectId, IFreelancer freelancer);
     }
 }

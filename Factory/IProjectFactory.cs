@@ -59,7 +59,7 @@ namespace iddd_db.Factory
         /// <param name="projectId"></param>
         /// <param name="freelancer"></param>
         /// <returns></returns>
-        Project SetTimeSheet(string projectId , IUser user);
+        Project TimeSheetEntered(string projectId , IUser user);
 
         /// <summary>
         /// 取得發案人員資料

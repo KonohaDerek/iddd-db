@@ -1,4 +1,5 @@
 using iddd_db.Enum;
+using iddd_db.Interfaces;
 using System;
 
 namespace iddd_db.Models
@@ -11,7 +12,7 @@ namespace iddd_db.Models
         /// <param name="project_name"></param>
         /// <param name="timeSheets"></param>
         /// <param name="customer"></param>
-        public Project(string project_name , string content , decimal price , Customer customer)
+        public Project(IUser user , string project_name , string content , decimal price )
         {
             this.Name = project_name;
 
@@ -19,14 +20,24 @@ namespace iddd_db.Models
 
             this.Price = price;
 
-            this.Customer = customer;
+            this.Customer = new Customer(user);
 
         }
 
-        /// <summary>
-        /// 專案名稱
-        /// </summary>
-        public string Name { get; private set; }
+		/// <summary>
+		/// 取得ID
+		/// </summary>
+		/// <returns></returns>
+		internal string GetIdentity()
+		{
+			return this.GetHashCode().ToString();
+		}
+
+
+		/// <summary>
+		/// 專案名稱
+		/// </summary>
+		public string Name { get; private set; }
 
 
         /// <summary>
@@ -34,23 +45,23 @@ namespace iddd_db.Models
         /// </summary>
         public string Content { get; private set; }
 
-
-        /// <summary>
-        /// 價格
-        /// </summary>
-        public decimal Price { get; private set; }
+	
+		/// <summary>
+		/// 價格
+		/// </summary>
+		public decimal Price { get; private set; }
 
 
         /// <summary>
         /// 發包者資訊
         /// </summary>
-        public Customer Customer{get;private set;}
+        public virtual Customer Customer{get;private set;}
 
 
         /// <summary>
         /// 接案者資訊
         /// </summary>
-        public Freelancer Freelancer { get; private set; }
+        public virtual Freelancer Freelancer { get; private set; }
 
         /// <summary>
         /// 完成時間
@@ -62,15 +73,9 @@ namespace iddd_db.Models
         /// </summary>
         public ProjectStaus Status { get; private set; }
 
-
         /// <summary>
         /// 建立時間
         /// </summary>
         public DateTime CreateDt { get; private set; }
-
-
-
-
-
     }
 }
