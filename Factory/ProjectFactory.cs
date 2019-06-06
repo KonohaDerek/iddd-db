@@ -15,7 +15,7 @@ namespace iddd_db.Factory
 		private List<Project> Projects = new List<Project>();
 
 
-		Project IProjectFactory.AddNewProject(IUser user, string name, string content, decimal price)
+		public Project AddNewProject(IUser user, string name, string content, decimal price)
         {
 			//資料驗證
             if (string.IsNullOrWhiteSpace(name))
@@ -30,7 +30,7 @@ namespace iddd_db.Factory
 		   return proejct;
         }
 
-        Project IProjectFactory.EditProject(string projectId, IUser user, string name, string content, decimal price)
+		public Project EditProject(string projectId, IUser user, string name, string content, decimal price)
         {
 			//找尋特定專案
 			var project = Projects.SingleOrDefault(o => o.GetIdentity() == projectId);
@@ -43,14 +43,12 @@ namespace iddd_db.Factory
 
 
 			//變更資料
-
-
-
+			project = project.Update(name, content, price);
 
 			return project;
 		}
 
-        Project IProjectFactory.CloseProject(string projectId, IUser user)
+		public Project RemoveProject(string projectId, IUser user)
         {
 			//找尋特定專案
 			var project = Projects.SingleOrDefault(o => o.GetIdentity() == projectId);
@@ -61,14 +59,15 @@ namespace iddd_db.Factory
 				throw new Exception("Not Vaild");
 			}
 
-			//變更資料
-			project.Close();
+			//移除專案
+			Projects.Remove(project);
 
 			return project;
 		}
 
-		bool IProjectFactory.Billing(string projectId, IUser user)
-        {
+
+		public Project FinishedProject(string projectId, IUser user)
+		{
 			//找尋特定專案
 			var project = Projects.SingleOrDefault(o => o.GetIdentity() == projectId);
 
@@ -78,13 +77,13 @@ namespace iddd_db.Factory
 				throw new Exception("Not Vaild");
 			}
 
-			//變更資料
-			project.Billing();
+			//完成
+			project.Finished();
 
-			return true;
+			return project;
 		}
 
-        Project IProjectFactory.TakeProjectCase(string projectId, IUser user)
+		public Project TakeProjectCase(string projectId, IUser user)
         {
 			//找尋特定專案
 			var project = Projects.SingleOrDefault(o => o.GetIdentity() == projectId);
@@ -101,13 +100,13 @@ namespace iddd_db.Factory
 			return project;
 		}
 
-        Project IProjectFactory.TimeSheetEntered(string projectId, IUser user)
+		public Project TimeSheetEntered(string projectId, IUser user)
         {
 			//找尋特定專案
 			var project = Projects.SingleOrDefault(o => o.GetIdentity() == projectId);
 
 			//檢查資料
-			if (project.Customer.User.GetIdentity() != user.GetIdentity())
+			if (project.Freelancer.User.GetIdentity() != user.GetIdentity())
 			{
 				throw new Exception("Not Vaild");
 			}

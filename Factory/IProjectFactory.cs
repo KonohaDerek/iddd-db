@@ -35,23 +35,23 @@ namespace iddd_db.Factory
         /// <param name="projectId"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        Project CloseProject(string projectId, IUser user);
+        Project RemoveProject(string projectId, IUser user);
 
-        /// <summary>
-        /// 付款
-        /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="customer"></param>
-        /// <returns></returns>
-        bool Billing(string projectId, IUser user);
+		/// <summary>
+		/// 結束案子
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="customer"></param>
+		/// <returns></returns>
+		Project FinishedProject(string projectId, IUser user);
 
-        /// <summary>
-        /// 接案
-        /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="freelancer"></param>
-        /// <returns></returns>
-        Project TakeProjectCase(string projectId, IUser user);
+		/// <summary>
+		/// 接案
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="freelancer"></param>
+		/// <returns></returns>
+		Project TakeProjectCase(string projectId, IUser user);
 
         /// <summary>
         /// 接案者設定TimeSheet
